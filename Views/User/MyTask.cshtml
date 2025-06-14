@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-12 float-end">
+<a class="btn btn-danger" asp-controller="User" asp-action="Login">Logout</a>
+</div>
+<table class="table table-border table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody id="TaskTable">
+    </tbody>
+</table>
+
+
+
+
+<script src="~/js/user.js"></script>
+
+

@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-12 float-end">
+    <a class="btn btn-danger" asp-controller="User" asp-action="Login">Logout</a>
+</div>
+<button type="button" class="btn btn-primary mb-2" onclick="AddUser()">+User</button>
+<a type="button" asp-controller="Admin" asp-action="TaskList" class="btn btn-primary mb-2"> Go To Task</a>
+<table class="table table-border table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="userTable">
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="userModel" tabindex="-1" aria-labelledby="userModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userModelLabel">User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input id="uid" name="uid" type="hidden" class="form-control" />
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input id="uname" name="uname" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input id="email" name="email" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input id="password" name="password" type="password" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Role:</label>
+                        <select id="roleid" name="roleid" class="form-control">
+                            <option value="0">--Select User--</option>
+                            <option value="1">Admin</option>
+                            <option value="2">User</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label>Photo:</label>
+                        <input type="file" id="profilephoto" name="profilephoto" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="SaveUser()">Save changes</button>
+                <button type="button" class="btn btn-secondary" onclick="CloseModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js"></script>

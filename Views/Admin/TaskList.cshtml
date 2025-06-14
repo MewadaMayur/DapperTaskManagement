@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-12 float-end">
+    <a class="btn btn-danger" asp-controller="User" asp-action="Login">Logout</a>
+</div>
+<button type="button" class="btn btn-primary mb-2" onclick="AddTask()">
+    +Task
+</button>
+<a asp-controller="Admin" asp-action="Index" class="btn btn-primary">
+    UserList
+</a>
+
+<table class="table table-border table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Assigned To</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="TaskTable">
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="taskModel" tabindex="-1" aria-labelledby="taskModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="taskModelLabel">Task</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input id="taskid" name="taskid" type="hidden" class="form-control" />
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input id="title" name="title" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea id="description" name="description" type="text" class="form-control" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Status :</label>
+                        <select id="status" name="status" class="form-control">
+                            <option value="">--Select Status--</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Work In Progress">Work In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Assign To :</label>
+                        <select id="assignid" name="assignid" class="form-control">
+                           
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="SaveTask()">Save changes</button>
+                <button type="button" class="btn btn-secondary" onclick="CloseModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<script src="~/js/task.js"></script>
+
+
