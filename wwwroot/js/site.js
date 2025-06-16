@@ -120,12 +120,13 @@ function InsertUser() {
         uname: $("#uname").val(),
         email: $("#email").val(),
         pass: $("#password").val(),
-        roleid: $("#roleid").val()
+        roleid: $("#roleid").val(),
+        profilephoto: ""
     };
 
     $.ajax({
         type: "POST",
-        url: "user/insertuser",
+        url: "/user/insertuser",
         data: JSON.stringify(user),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -151,7 +152,7 @@ function DeleteUser(id) {
     if (confirm("Are you sure want to delete this record?") == true) {
         $.ajax({
             type: "GET",
-            url: "user/deleteuser",
+            url: "/user/deleteuser",
             data: { uid: id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

@@ -4,11 +4,11 @@
 }
 
 
-<div class="col-md-12 float-end">
+<div class="col-md-12 float-end my-2">
+    <button type="button" class="btn btn-primary" onclick="AddUser()">+User</button>
+    <a type="button" asp-controller="Admin" asp-action="TaskList" class="btn btn-primary"> Go To Task</a>
     <a class="btn btn-danger" asp-controller="User" asp-action="Login">Logout</a>
 </div>
-<button type="button" class="btn btn-primary mb-2" onclick="AddUser()">+User</button>
-<a type="button" asp-controller="Admin" asp-action="TaskList" class="btn btn-primary mb-2"> Go To Task</a>
 <table class="table table-border table-striped">
     <thead>
         <tr>

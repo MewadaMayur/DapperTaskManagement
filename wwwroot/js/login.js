@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function LoginUser() {
 
-    
+    if ($("#loginform").valid()) {
         $.ajax({
             type: "GET",
             url: "User/LoginUser",
@@ -20,11 +20,11 @@ function LoginUser() {
                     return;
                 }
                 else {
-                    
+
                     alert(data.message);
                     sessionStorage.setItem("UserID", data.data.uid);
                     if (data.data.rolename == "Admin") {
-                        
+
                         window.location.href = "Admin/Index";
                     }
                     else {
@@ -37,6 +37,9 @@ function LoginUser() {
                 console.error("Error retrieving users:", error);
             }
         });
+    }
+    
+       
     
 }
 
