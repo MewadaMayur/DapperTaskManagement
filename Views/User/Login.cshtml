@@ -8,9 +8,8 @@
     <link href="~/css/site.css" rel="stylesheet">
 </head>
 <body>
-
     <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 float-start">&nbsp;</div>
-    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 float-start mt-5">
+    <div class="border col-lg-4 col-md-4 col-sm-4 col-xs-12 float-start mt-5 py-5 px-4">
         <h1>Login</h1>
         <form id="loginform" name="loginform" novalidate>
             <div class="mb-3">
@@ -22,7 +21,7 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
-            <button type="button" class="btn btn-primary" onclick="LoginUser()">Submit</button>
+            <button type="button" class="btn btn-primary w-100" onclick="LoginUser()">Login</button>
         </form>
     </div>
     <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 float-start"></div>
@@ -31,30 +30,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="~/js/login.js"></script>
-    <script>
-                $("#loginform").validate({
-          rules: {
-            email: {
-              required: true,
-              email:true
-            },
-            password:{
-                required: true
-            }
-
-          },
-          messages: {
-            email: {
-              required: "Please enter a username",
-              email: "Please enter a valid username (email)",
-            },
-            password: {
-              required: "Please enter a passwords",
-            }
-          }
-        });
-
-    </script>
 </body>
 </html>
 

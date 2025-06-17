@@ -44,3 +44,26 @@ function LoginUser() {
 }
 
 
+$("#loginform").validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true
+        }
+
+    },
+    messages: {
+        email: {
+            required: "Please enter a username",
+            email: "Please enter a valid username (email)",
+        },
+        password: {
+            required: "Please enter a passwords",
+        }
+    }
+});
+
+
