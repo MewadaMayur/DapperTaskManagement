@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SilveOakDemo.Models;
 using SilveOakDemo.Repo;
+using System.Threading.Tasks;
 
 namespace SilveOakDemo.Controllers
 {
@@ -26,42 +27,42 @@ namespace SilveOakDemo.Controllers
 
         [Route("getalltasks")]
 
-        public JsonResult GetallTasks()
+        public async Task<JsonResult> GetallTasks()
         {
             ResponseModel res = new ResponseModel();
-            res = _taskRepository.GetAllTasks();
+            res =await _taskRepository.GetAllTasks();
             return Json(res);
         }
 
         [Route("inserttask")]
-        public JsonResult InsertTask([FromBody] Tasks u)
+        public async Task<JsonResult> InsertTask([FromBody] Tasks u)
         {
             ResponseModel res = new ResponseModel();
-            res = _taskRepository.CreateTask(u);
+            res =await _taskRepository.CreateTask(u);
             return Json(res);
         }
 
         [Route("updatetask")]
-        public JsonResult UpdateTask([FromBody] Tasks u)
+        public async Task<JsonResult> UpdateTask([FromBody] Tasks u)
         {
             ResponseModel res = new ResponseModel();
-            res = _taskRepository.UpdateTask(u);
+            res =await _taskRepository.UpdateTask(u);
             return Json(res);
         }
 
         [Route("edittask")]
-        public JsonResult EditTask(int uid)
+        public async Task<JsonResult> EditTask(int uid)
         {
             ResponseModel res = new ResponseModel();
-            res = _taskRepository.GetTaskById(uid);
+            res =await _taskRepository.GetTaskById(uid);
             return Json(res);
         }
 
         [Route("deletetask")]
-        public JsonResult DeleteTask(int taskid)
+        public async Task<JsonResult> DeleteTask(int taskid)
         {
             ResponseModel res = new ResponseModel();
-            res = _taskRepository.DeleteTask(taskid);
+            res =await _taskRepository.DeleteTask(taskid);
             return Json(res);
         }
 

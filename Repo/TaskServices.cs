@@ -21,12 +21,12 @@ namespace SilveOakDemo.Repo
             _configuration = configuration;
             
         }
-        public ResponseModel GetAllTasks()
+        public async Task<ResponseModel> GetAllTasks()
         {
             ResponseModel res = new ResponseModel();
             var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             var sql = "select taskid,title,description,status,u.uname from tbltask t join tbluser u on t.assignedid = u.uid";
-            res.Data = con.Query(sql).ToList();
+            res.Data =await con.QueryAsync(sql);
             if (res.Data == null)
             {
                 res.Flag = false;
@@ -34,12 +34,12 @@ namespace SilveOakDemo.Repo
             res.Flag = true;
             return res;
         }
-        public ResponseModel GetTaskById(int id)
+        public async Task<ResponseModel> GetTaskById(int id)
         {
             ResponseModel res = new ResponseModel();
             var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             var sql = "select * from tbltask where taskid = @taskid";
-            res.Data = con.QueryFirstOrDefault(sql, new { taskid = id });
+            res.Data =await con.QueryFirstOrDefaultAsync(sql, new { taskid = id });
             if (res.Data == null)
             {
                 res.Flag = false;
@@ -53,7 +53,7 @@ namespace SilveOakDemo.Repo
                 
             return res;
         }
-        public ResponseModel CreateTask(Tasks Task)
+        public async Task<ResponseModel> CreateTask(Tasks Task)
         {
             ResponseModel res = new ResponseModel();
             try
@@ -62,7 +62,7 @@ namespace SilveOakDemo.Repo
                 
                 //check duicate Task
                     var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-                var checkTask = con.ExecuteScalar("SELECT count(taskid) FROM tbltask WHERE title = @title", 
+                var checkTask =await con.ExecuteScalarAsync("SELECT count(taskid) FROM tbltask WHERE title = @title", 
                     new { title = Task.title });
                 if (Convert.ToInt32(checkTask)>0)
                 {
@@ -98,14 +98,14 @@ namespace SilveOakDemo.Repo
             return res;
 
         }
-        public ResponseModel UpdateTask(Tasks Task)
+        public async Task<ResponseModel> UpdateTask(Tasks Task)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-                var checkTask = con.ExecuteScalar("SELECT count(taskid) FROM tbltask WHERE title = @title and taskid<>@taskid",
+                var checkTask =await con.ExecuteScalarAsync("SELECT count(taskid) FROM tbltask WHERE title = @title and taskid<>@taskid",
                     new {title = Task.title, taskid = Task.taskid});
                 if (Convert.ToInt32(checkTask) > 0)
                 {
@@ -136,14 +136,14 @@ namespace SilveOakDemo.Repo
 
             return res;
         }
-        public ResponseModel DeleteTask(int id)
+        public async Task<ResponseModel> DeleteTask(int id)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 var sql = "Delete from tbltask WHERE taskid =@taskid";
-                res.Data = con.Execute(sql, new { taskid = id });
+                res.Data =await con.ExecuteAsync(sql, new { taskid = id });
                 if (res.Data == null || Convert.ToInt16(res.Data) == 0)
                 {
                     res.Flag = false;

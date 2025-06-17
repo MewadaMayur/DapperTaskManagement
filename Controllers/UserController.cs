@@ -20,50 +20,50 @@ namespace SilveOakDemo.Controllers
         }
 
         [Route("user/getalluser")]
-        public JsonResult GetallUsers()
+        public async Task<JsonResult> GetallUsers()
         {
             ResponseModel res = new ResponseModel();
-            res= _userRepository.GetAllUsers();
+            res=await _userRepository.GetAllUsers();
             return Json(res);
         }
 
         [Route("user/insertuser")]
-        public JsonResult InsertUser([FromBody] User u)
+        public async Task<JsonResult> InsertUser([FromBody] User u)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.CreateUser(u);
+            res =await _userRepository.CreateUser(u);
             return Json(res);
         }
 
         [Route("user/updateuser")]
-        public JsonResult UpdateUser([FromBody] User u)
+        public async Task<JsonResult> UpdateUser([FromBody] User u)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.UpdateUser(u);
+            res =await _userRepository.UpdateUser(u);
             return Json(res);
         }
 
         [Route("user/edituser")]
-        public JsonResult EditUser(int uid)
+        public async Task<JsonResult> EditUser(int uid)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.GetUserById(uid);
+            res =await _userRepository.GetUserById(uid);
             return Json(res);
         }
 
         [Route("user/deleteuser")]
-        public JsonResult DeleteUser(int uid)
+        public async Task<JsonResult> DeleteUser(int uid)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.DeleteUser(uid);
+            res =await _userRepository.DeleteUser(uid);
             return Json(res);
         }
 
         [Route("user/loginuser")]
-        public JsonResult LoginUser(string email, string password)
+        public async Task<JsonResult> LoginUser(string email, string password)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.LoginUser(email,password);
+            res =await _userRepository.LoginUser(email,password);
             return Json(res);
         }
 
@@ -78,19 +78,19 @@ namespace SilveOakDemo.Controllers
         }
 
         [Route("user/getallmytasks")]
-        public JsonResult GetallMyTasks(int id)
+        public async Task<JsonResult> GetallMyTasks(int id)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.GetAllMyTasks(id);
+            res = await _userRepository.GetAllMyTasks(id);
             return Json(res);
         }
 
 
         [Route("user/updatetaskstatus")]
-        public JsonResult UpdateTaskStatus(int id,string status)
+        public async Task<JsonResult> UpdateTaskStatus(int id,string status)
         {
             ResponseModel res = new ResponseModel();
-            res = _userRepository.UpdateTaskStatus(id,status);
+            res =await _userRepository.UpdateTaskStatus(id,status);
             return Json(res);
         }
         

@@ -5,10 +5,11 @@ namespace SilveOakDemo.Repo
     public interface ITaskServices
     {
 
-        ResponseModel GetAllTasks();
-        ResponseModel GetTaskById(int uid);
-        ResponseModel CreateTask(Tasks Task);
-        ResponseModel UpdateTask(Tasks task);
-        ResponseModel DeleteTask(int uid);
+        //ResponseModel GetAllTasks();
+        Task<ResponseModel> GetAllTasks();
+        Task<ResponseModel> GetTaskById(int uid);
+        Task<ResponseModel> CreateTask(Tasks Task);
+        Task<ResponseModel> UpdateTask(Tasks task);
+        Task<ResponseModel> DeleteTask(int uid);
     }
 }

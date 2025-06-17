@@ -19,12 +19,12 @@ namespace SilveOakDemo.Repo
         {
             _configuration = configuration;
         }
-        public ResponseModel GetAllUsers()
+        public async Task<ResponseModel> GetAllUsers()
         {
             ResponseModel res = new ResponseModel();
             var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             var sql = "select u.uid,u.uname,u.email,u.profilephoto,r.rolename from tbluser u join tblrole r on u.roleid = r.roleid";
-            res.Data = con.Query(sql).ToList();
+            res.Data =await con.QueryAsync(sql);
             if (res.Data != null)
             {
                 res.Flag = false;
@@ -32,12 +32,12 @@ namespace SilveOakDemo.Repo
             res.Flag = true;
             return res;
         }
-        public ResponseModel GetUserById(int uid)
+        public async Task<ResponseModel> GetUserById(int uid)
         {
             ResponseModel res = new ResponseModel();
             var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             var sql = "select * from tbluser where uid = @uid";
-            res.Data = con.QueryFirstOrDefault(sql, new { uid = uid });
+            res.Data = await con.QueryFirstOrDefaultAsync(sql, new { uid = uid });
             if (res.Data == null)
             {
                 res.Flag = false;
@@ -51,14 +51,14 @@ namespace SilveOakDemo.Repo
                 
             return res;
         }
-        public ResponseModel CreateUser(User user)
+        public async Task<ResponseModel> CreateUser(User user)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 //check duicate user
-                var checkUser = con.ExecuteScalar("SELECT count(uid) FROM tbluser WHERE email = @email", 
+                var checkUser =await con.ExecuteScalarAsync("SELECT count(uid) FROM tbluser WHERE email = @email", 
                     new { email = user.email });
                 if (Convert.ToInt32(checkUser)>0)
                 {
@@ -94,14 +94,14 @@ namespace SilveOakDemo.Repo
             return res;
 
         }
-        public ResponseModel UpdateUser(User user)
+        public async Task<ResponseModel> UpdateUser(User user)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-                var checkUser = con.ExecuteScalar("SELECT count(uid) FROM tbluser WHERE email = @email and uid<>@uid",
+                var checkUser =await con.ExecuteScalarAsync("SELECT count(uid) FROM tbluser WHERE email = @email and uid<>@uid",
                     new {email = user.email,uid=user.uid });
                 if (Convert.ToInt32(checkUser) > 0)
                 {
@@ -131,14 +131,14 @@ namespace SilveOakDemo.Repo
 
             return res;
         }
-        public ResponseModel DeleteUser(int id)
+        public async Task<ResponseModel> DeleteUser(int id)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 var sql = "Delete from tbluser WHERE uid =@uid";
-                res.Data = con.Execute(sql, new { uid = id });
+                res.Data =await con.ExecuteAsync(sql, new { uid = id });
                 if (res.Data == null || Convert.ToInt16(res.Data) == 0)
                 {
                     res.Flag = false;
@@ -156,14 +156,14 @@ namespace SilveOakDemo.Repo
 
             return res;
         }
-        public ResponseModel LoginUser(string email, string password)
+        public async Task<ResponseModel> LoginUser(string email, string password)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 var sql = "select u.uid,u.uname,u.email,u.profilephoto,r.rolename from tbluser u join tblrole r on u.roleid = r.roleid where u.email = @email and u.pass=@pass";
-                res.Data = con.QueryFirstOrDefault(sql, new { email = email,pass=password });
+                res.Data =await con.QueryFirstOrDefaultAsync(sql, new { email = email,pass=password });
                 if (res.Data ==null)
                 {
                     res.Flag = false;
@@ -183,14 +183,14 @@ namespace SilveOakDemo.Repo
 
             return res;
         }
-        public ResponseModel GetAllMyTasks(int userid)
+        public async Task<ResponseModel> GetAllMyTasks(int userid)
         {
                 ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 var sql = "select t.taskid,t.title,t.description,t.status,u.uname from tbltask t join tbluser u on t.assignedid = u.uid where t.assignedid= @userid";
-                res.Data = con.Query(sql, new { userid = userid }).ToList();
+                res.Data =await con.QueryAsync(sql, new { userid = userid });
                 if (res.Data == null)
                 {
                     res.Flag = false;
@@ -209,14 +209,14 @@ namespace SilveOakDemo.Repo
             
         }
 
-        public ResponseModel UpdateTaskStatus(int taskid,string status)
+        public async Task<ResponseModel> UpdateTaskStatus(int taskid,string status)
         {
             ResponseModel res = new ResponseModel();
             try
             {
                 var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
                 var sql = "update tbltask set status = @status where taskid = @taskid";
-                res.Data = con.Execute(sql, new {status= status , taskid = taskid });
+                res.Data =await con.ExecuteAsync(sql, new {status= status , taskid = taskid });
                 if (res.Data == null)
                 {
                     res.Flag = false;

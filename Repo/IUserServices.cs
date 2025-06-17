@@ -4,15 +4,13 @@ namespace SilveOakDemo.Repo
 {
     public interface IUserServices
     {
-         ResponseModel GetUserById(int id);
-         ResponseModel GetAllUsers();
-         ResponseModel CreateUser(User user);
-         ResponseModel UpdateUser(User user);
-         ResponseModel DeleteUser(int id);
-        ResponseModel LoginUser(string email, string password);
-
-        ResponseModel GetAllMyTasks(int userid);
-
-        ResponseModel UpdateTaskStatus(int userid,string status);
+        Task<ResponseModel> GetUserById(int id);
+        Task<ResponseModel> GetAllUsers();
+        Task<ResponseModel> CreateUser(User user);
+        Task<ResponseModel> UpdateUser(User user);
+        Task<ResponseModel> DeleteUser(int id);
+        Task<ResponseModel> LoginUser(string email, string password);
+        Task<ResponseModel> GetAllMyTasks(int userid);
+        Task<ResponseModel> UpdateTaskStatus(int userid, string status);
     }
 }
